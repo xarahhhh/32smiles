@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f4f9f9;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header img {
+            width: 150px;
+            height: auto;
+        }
+
+        .header h2 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 40px;
+            color: #01796f;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: #01796f;
+            box-shadow: 0 0 5px rgba(1, 121, 111, 0.5);
+        }
+
+        .btn-custom {
+            background-color: #01796f;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .btn-custom:hover {
+            background-color: #014d40;
+        }
+
+        .form-text {
+            font-size: 14px;
+        }
+
+        .alert-custom {
+            font-size: 16px;
+            padding: 10px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .alert-success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .alert-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .contact-info a {
+            color: #01796f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <!-- Replace with actual logo -->
+            <img style="border-radius: 100px;"
+                src="https://t3.ftcdn.net/jpg/06/96/06/50/360_F_696065050_vOpiPs9XOpNhQ6yB2RXn8DrbjKZ5ZFZU.jpg"
+                alt="logo">
+            <h2>Welcome To 32 SMILES</h2>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h4 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
+                        class="text-center">Who is this appointment for?</h4>
+                    <form id="appointmentForm">
+                        <div class="mb-3">
+                            <label for="patientName" class="form-label">Patient Name (Required)</label>
+                            <input type="text" class="form-control" id="patientName" placeholder="First Name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="isBookingForSomeoneElse" class="form-label">I’m booking for someone else</label>
+                            <input type="checkbox" id="isBookingForSomeoneElse">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="previousVisit" class="form-label">Have you visited us before?</label><br>
+                            <input type="radio" id="newPatient" name="patientType" value="New" required>
+                            <label for="newPatient">New Patient</label>
+                            <input type="radio" id="returningPatient" name="patientType" value="Returning">
+                            <label for="returningPatient">Returning Patient</label>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn-custom">Submit</button>
+                        </div>
+                    </form>
+
+                    <div id="responseMessage"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form validation and handling submission
+        document.getElementById("appointmentForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Get form data
+            const patientName = document.getElementById("patientName").value;
+            const lastName = document.getElementById("lastName").value;
+            const isBookingForSomeoneElse = document.getElementById("isBookingForSomeoneElse").checked;
+            const patientType = document.querySelector('input[name="patientType"]:checked')?.value;
+
+            // Basic validation
+            if (patientName && lastName && patientType) {
+                // Show the success popup
+                alert("Appointment booked successfully! Your information has been received.");
+
+                // Clear form after success
+                document.getElementById("appointmentForm").reset();
+            } else {
+                // Show error popup if any required field is missing
+                alert("Please fill in all the required fields.");
+            }
+        });
+    </script>
+
+</body>
+
+</html>

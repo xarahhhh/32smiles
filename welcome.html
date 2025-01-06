@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Appointment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: url('https://brasselerusadental.com/wp-content/uploads/sites/9/2019/10/Brasseler-Fall-Background.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 450px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .home-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #2ecc71;
+            text-decoration: none;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+            color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Dental Appointment Form</h2>
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name">
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter your phone number">
+                <div class="error" id="phoneError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Appointment Date</label>
+                <input type="date" id="date" name="date">
+                <div class="error" id="dateError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Additional details..."></textarea>
+                <div class="error" id="messageError"></div>
+            </div>
+
+            <button type="submit" class="submit-btn">Book Appointment</button>
+        </form>
+        <a href="index.html" class="home-btn"></a>
+
+    </div>
+
+    <script>
+        document.getElementById('appointmentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Clear all error messages
+            document.querySelectorAll('.error').forEach(error => error.textContent = '');
+
+            // Name validation
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required';
+                isValid = false;
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Enter a valid email';
+                isValid = false;
+            }
+
+            // Phone number validation
+            const phone = document.getElementById('phone').value.trim();
+            const phonePattern = /^\d{10,15}$/; // New validation for 10 to 15 digits
+
+            if (!phonePattern.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Enter a valid 10-digit phone number';
+                isValid = false;
+            }
+
+            // Date validation
+            const date = document.getElementById('date').value.trim();
+            if (date === '') {
+                document.getElementById('dateError').textContent = 'Select an appointment date';
+                isValid = false;
+            }
+
+            // Message validation
+            const message = document.getElementById('message').value.trim();
+            if (message.length < 10) {
+                document.getElementById('messageError').textContent = 'Message must be at least 10 characters';
+                isValid = false;
+            }
+
+            // Submit the form if valid
+            if (isValid) {
+                alert('Appointment booked successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

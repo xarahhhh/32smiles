@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<style>
+    .navbar {
+        position: relative;
+        z-index: 10;
+    }
+
+    .navbar-brand {
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .navbar-nav {
+        font-size: 18px;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 1em;
+        text-align: center;
+    }
+
+    header nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    header nav ul li {
+        margin-right: 20px;
+    }
+
+    header nav a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2em;
+    }
+
+    section {
+        background-color: #f7f7f7;
+        padding: 1em;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #555;
+    }
+
+
+    .home-image img {
+        width: 100%;
+        height: auto;
+        /* Badlaav kiya gaya hai */
+        object-fit: contain;
+        /* Badlaav kiya gaya hai */
+        margin-bottom: 10px;
+    }
+
+
+    /* .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        background-color: #fff;
+        padding: 1em;
+        margin: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: calc(33.33% - 20px);
+    }
+
+    .card img {
+        height: 300px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .card h2 {
+        margin-top: 0;
+    }
+
+    .card p {
+        margin-bottom: 20px;
+    } */
+    .service-card img {
+        width: 100%;
+        height: auto;
+        min-height: 200px;
+        object-fit: cover;
+        /* border-radius: 10px; */
+        display: block;
+
+
+    }
+
+    .service-card {
+        text-align: center;
+        margin-bottom: 20px;
+        /* Increase the box shadow for depth */
+        /* box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); */
+        /* Add some padding to increase the card's shadow */
+        padding: 20px;
+        /* border-radius: 30px;  */
+        justify-content: start;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        /* Slight lift effect */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        /* Stronger shadow on hover */
+        border-top-left-radius: 30px;
+        /* Increase border radius for top-left corner */
+        border-top-right-radius: 20px;
+    }
+
+    .service-card h5 {
+        margin-top: 20px;
+        font-size: 30px;
+    }
+
+    .service-card p {
+        font-size: 20px;
+    }
+
+    .btn {
+        font-size: 20px;
+        border: solid #e7ca71;
+    }
+
+    .container {
+        display: flex;
+        gap: 20px;
+    }
+
+    .box {
+        margin-top: 100px;
+        position: relative;
+        width: 80%;
+        height: 500px;
+        overflow: hidden;
+        border-radius: 15px;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 2px solid #ccc;
+
+    }
+
+    .box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .top,
+    .bottom {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .bottom {
+        top: 50%;
+    }
+
+    .box:hover .top {
+        transform: translateY(-100%);
+    }
+
+    .box:hover .bottom {
+        transform: translateY(100%);
+    }
+
+    .box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.4s ease;
+    }
+
+    .popup {
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        width: 80%;
+        /* Larger width */
+        height: 50%;
+        /* Larger height */
+        background-color: rgba(255, 255, 255, 0.95);
+        /* Slightly transparent background for better aesthetics */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        border-radius: 20px;
+        /* Softer corners */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        /* Deeper shadow for better depth */
+        padding: 20px;
+        /* Add some padding for content inside the pop-up */
+    }
+
+    .popup img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        /* Ensure images fit well inside the larger pop-up */
+        border-radius: 10px;
+        /* Slight rounding for the image edges */
+    }
+
+    .box:hover .popup {
+        opacity: 1;
+        /* Ensure visibility when hovered */
+    }
+
+    .content-box {
+
+        margin-top: 200px;
+        width: 100%;
+        padding: 20px;
+        border-radius: 8px;
+        /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+        font-size: 20px;
+        /* Adjusted margin to bring it closer */
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .info-box {
+        
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .main-container {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      padding: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* Card Style */
+    .card {
+      background-color: white;
+      width: 250px;
+      height: 350px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    /* Hover Effect on Card */
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Card Icon */
+    .card i {
+      font-size: 50px;
+      color: #005b8d;
+      margin-bottom: 20px;
+    }
+
+    /* Card Title */
+    .card h3 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    /* Card Text */
+    .card p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    footer {
+        margin-top: 20px;
+        /* background: linear-gradient(to right, #2b6d85, #407099); */
+        background: rgb(121, 196, 207);
+        background: linear-gradient(0deg, rgba(121, 196, 207, 1) 12%, rgba(110, 158, 191, 1) 56%);
+
+        padding: 30px 0;
+        text-align: center;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .footer-section {
+        flex: 1;
+        margin: 20px;
+        min-width: 200px;
+    }
+
+
+    .footer-section ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .footer-section ul li {
+        margin: 10px 0;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .footer-section ul li a {
+        text-decoration: none;
+        color: white;
+        transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+        color: #f4a261;
+        /* Color change on hover */
+    }
+
+    .newsletter form {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .newsletter input[type="email"] {
+        padding: 10px;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .newsletter button {
+        padding: 10px 20px;
+        background-color: #d6acacb2;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: white;
+        transition: background-color 0.3s;
+    }
+
+    .newsletter {
+        margin-left: 40px;
+        /* Adjust this to move it to the right */
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .newsletter button:hover {
+        background-color: #d7cecc;
+    }
+
+    .copyright {
+        background-color: #222;
+        padding: 10px 0;
+        margin-top: 20px;
+        font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+        .footer-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">32 SMILES</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item mx-2"><a class="nav-link" href="index.html">HOME</a></li>
+
+                    <li class="nav-item mx-2"><a class="nav-link" href="aboutus.html">ABOUT US</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link" href="patientseducation.html">PATIENTS EDUCATION</a>
+                    </li>
+                    <li class="nav-item mx-2"><a class="nav-link" href="contactus.html">CONTACT US</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link" href="regularcare.html">REGULAR CARE</a></li>
+                </ul>
+
+                <div class="d-flex">
+                    <button class="btn"
+                        style="background: linear-gradient(to right, #336f83, #5280ab); border: none; height: 40px; border-radius: 2px;"
+                        type="button">
+                        <a style="text-decoration: none;color:rgb(94, 91, 91);" href="booking.html">BOOK ONLINE</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="home-image">
+        <img src="https://oldtown-dentalcare.co.uk/wp-content/uploads/2024/05/86f7aed9-5e84-420c-b5e9-547f74442f29.webp"
+            alt="Dental Care">
+    </div>
+
+    <section id="services">
+        <h1
+            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;text-align: center;font-size: 50px;">
+            Our Services</h1>
+        <p
+            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 20px;text-align: center;">
+            We offer a range of dental services to meet your needs.</p>
+        <div class="row">
+            <!-- General -->
+            <div class="col-md-4 service-card">
+                <img src="https://d2jx2rerrg6sh3.cloudfront.net/image-handler/picture/2017/9/shutterstock_447016423.jpg"
+                    alt="General Dentistry">
+                <h5>Dental Implants</h5>
+                <p>Replace missing teeth with our dental implant services.</p>
+                <a href="#" class="btn btn-custom">ABOUT GENERAL DENTISTRY</a>
+            </div>
+            <!-- Cosmetic -->
+            <div class="col-md-4 service-card">
+                <img src="https://cdn.shopify.com/s/files/1/0327/0888/6666/files/teeth-whitening_d17ecb06-7e23-455f-9689-c3eecac4e882_600x600.jpg?v=1692013560"
+                    alt="Cosmetic Dentistry">
+                <h5>Teeth Whitening</h5>
+                <p>Get a brighter smile with our teeth whitening services.</p>
+                <a href="#" class="btn btn-custom">ABOUT COSMETIC DENTISTRY</a>
+            </div>
+            <!-- Surgical -->
+            <div class="col-md-4 service-card">
+                <img src="https://www.mystuartfamilydentist.com/wp-content/uploads/2024/01/How-to-Ease-Discomfort-from-a-Lost-Filling-or-Crown-Before-Your-Dentist-Visit.png"
+                    alt="Oral Surgery">
+                <h5>Dental Fillings</h5>
+                <p>Fill cavities and restore your teeth with our dental filling services.
+                </p>
+                <a href="#" class="btn btn-custom">ABOUT ORAL SURGERY</a>
+            </div>
+        </div>
+        </div>
+        <h1
+            style="text-align: center;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 50px;">
+            Professional Education</h1>
+        <br>
+        <div class="container">
+            <div class="box">
+                <div class="top">
+                    <img src="https://blog.sesamehub.com/devers-brian/files/2024/03/oral-health-overall-health_35246065.jpg"
+                        alt="Image 1">
+                </div>
+                <div class="bottom">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQsAAAC9CAMAAACTb6i8AAABblBMVEVAo7jcdGn8/v3///+g0ORGprrv8fAgZJXE5PFZW1rjh4Lfc2f9//3hcmXZcXKczuMzpbx6yNTn6eggcYbkcWO5gYHp6+osnbTp9fXD4uAvpryl0+b0+vrhcmbi5OMeYJPb8PHimJgxRklaVlM4h7BQUlG42eDbaV3gfXbCxMNubG1dX14AWo+43OrU6fLV4eRRnrLIe3WvhYbPeXJKiplnZGRTbHFGk6U7l7JOfYk2jqyZxdtls8fQ6emp0dvK5e4AYHvD1dry2MWhio5smajx0s+RjpbCfnt9laFTZGaIiolSS0l2eHe1trbP0dCWmJcmbpuaxbMqdqCCurXz7azJ2bBir7ajpaRnnb7f5a5Rdn5Rhaqwz7GGrspVob6QtMJ2hYpxqLd9zNWDvs5jr8ivy92MpL1ulLJUgqikus2Dorylw8qKrbYud4sYMzj25dznr68AJymkYmO4Y2PxxsX56ejXwsLhnpfik4uJkpxXOfmAAAATDklEQVR4nO2di0PaWBbGIQEVgUIVTQYCMsPis0EEfLQgaMFXa52u82i33XZmh3an3XbG7q5u63+/5z6SmyckCBYl30wVITk555dzz30kUZ/PE1XwazswRPJYMHksmDwWTB4LJo8Fk8eCyWPB5LFg8lgweSyYPBZMHgsmjwWTx4LJY8HksWDyWDB5LJiGmQXxLXhtLg4xi8rGUSifDx3d37ymAw4tixe5XD6//OjRo+XHj48q13LI4WQRr+RC+eOlzBRoNvPk+HFoMz74ow4li/h9QPFkFjiMjc1OZTJTSyuP7w8exlCygKwInSAQVJlM5vjxi4G7OowsipAVS1NjGk1lpo4fD7xoDCGLIHQf38+OjelhZPK5gR940Adwr01Ii4yBxVhm6ln+/oAPPHwsghuh/KMpA4qx2cxJfmXQRx6w/R5kqhYkMWZDueJgDzx8LCpKE+FB2kaynBtw9Rw+FjC2CCEWPK+DAT3JyLEI3id5wREWHGsjK7nKYMdbQ8hifSV/orJQEwM61VBoo1IcII6hY+GrrK/nn0yNSfq8mMo8ARahXC70ouKLD8br4WOxmVsOHc/OGuoFlIsQUS6X2xjMNH74WPhyyyu4U5U4Vi2mYHgR2tgADpTHygDSYwhZvFhfD61kMvqR1uxxKAfz9s0XKxQH8Oj3Ks/XYBFEsv+4iBJjOaMZhgOK7/OhI7xvvHh/g+FA1aNvIVw/i6Bv6y9Pnz7dCtodH3qS5VB+ZWmW0pgFLM/ykBbMQuVFSJ8efeldrpUFpMPWg6fjc+Pj8A+/I/zVarONldDyev7R0hRMTzOZqdmTY0ChW7+A1nJf01qgs+1D9bi+ReZgUHhwOjeHQCAWc/jdH3786WeLjTdyy8shyI3vnywtPXl2jHrTI5PBeLGithaaHleL5ppYBH0PTscZh3tz756TD37628+ajdRX90mMeSwUqgkF3aOiLaY5GItdyclBK4gLhJbDy1dvJxqygD/9gaH44e+anTbZKUdhvuhwgM37R2TbleX19dzRi57TY7AsUIEwcUjJE0ivdceH7z//pHUmuInqYy6fQ6d7s7ObkB546LEOWl7H6dFL9RgcC1wo1QIBHMaBQwNRqGIWAUGzsfB3weQLKgitXw4rDs8zsFupVn9dX15G6RHqYRFsQCN7aBesQMzduzf+/JXcqGISCovGa80Of/3RqkPx1VKBVNvxQeNt2HwlhGgsL+c2XIfWfxZ6DkDi9GVVDjAG7MVrlhk//PijVX8SAMWcHxq2Tv1jI5RDOEIh95673qOjNVwfxtWeEynVQAWiqoWRSlEmW1sUh/DTz4KFuRRE5zgvfL4Y2jxOimnHcmvjves9OpjCdVKDATWPWhUzCKCCWZWVxKAwJuTqA7KzFYqeWMSQobiv0sNUxR0LwcpjYuYB6y8UDnPjp6/v/vaG5MOrCeULhkFTJLCls07ErFqzMGzF1EaNxPbTrnLBIthu1+v1QLtW0/V9QcoBi4EYf/pgy1f77e7dGmkhclUHA2hAlrxiPgtCrd7IiqJYmG8H6duYhaFeCL52fb7RaMzXaz5jxFBqA7GCKGYb9XYPOByzqAVk5FkASjWIuKtywNG/jAWez5FuY+70Ab6HpHYXVCWNI0VgpFQaEzIrnoJQF/EyFsdF4Fu2TT4xsRDaWV4Vl9VFLATnoZHEGmAEfdiouaXhjEWwHcAgNKq30fyCdRfjp7BFCoF49343SO1iFm9oPhAYKZQPMq4eKAGIavMcRBABEpIoSigWCUcSUAoAjbYmYlxIkoSocfNtpcm0GzyPNk/xYINDNgqDYGEmEQi8/ae+Psw9Ryxe/v4WLVRKNbLjm7s0MXALkUntlAmOKt4w22hsi+B3hOMJBmgliAnH1wVSDNmYTKgrIEBZEGwPOMQCtcHxMoKBbEjYhOQuNZywiFESMSTURNC/8Xu6Qjl+D7GABKXuEhiv7yqJEUiRIpGSSV9SrWe3RYmluyRmcXQqCwwDsUipKOY1KDi8/XZW5LQ2GqiRZBUWqhv9YxGjIFITBVFaff/y3fNX1Tenuj4DKsTvb9FWsuouNryFWdRk1nPAmcMNZTv7DQhqpQTpkN2Gl1i0jRAYbQF3DEErFNBIYHMwsU1tbKOXWcRigrQRrIibfrL7trjTjsnQUlff/w6zitO/ID3VDCHuvXs1D/7gk6j4y2dxer6GjuTub68mWAvBrwrQOBAAJpryIkMBNmpaFm09Cqguot4GoMjiDGYoOF500Uq6smij1Jc56f07lQNDgWYav7/NohVrjsdFX40Et3daMWqk84A6gUvHLmpIUB6y2yiU7W0IgiCISBoSiOcbVINonnMWkkRCg5qQIrSRaGzUncPoxoJ02fwuBK1wOGUg3r1fRV0gKXYTOj8iHN5fgNEWbSU0J3Y5doIlkLK59psaSEBhYWwhGh7YBv1UxI1EuynvGEVXFgGMQoJCqWYEHUOM/2tXUjhgFfR+KGdk63UNBp+kB6lWV3m7mKwkxtSBpwGTjSI4ObWb8vOOE6MLC0iLmAyVgrJ4qkkI3hBVRF8w4IQpTgirb+vVt6BdzhUJpd0hG8ZqYbcDbiQFLQypXyxwCYhws/c0lfIpSQizHzHSu6s/Kx1am3V7LsXLMcLCvonohU9ITNY1Esf9amcWJC3A4PgcBfESJ4RlvpKRDitcSiPRDZFcskDtDnUkQtahDVrBNQ46r56dWUCfFsPj2VUYQtgmhHLQhjIdoD9vUxYOz6mVUMFAxVOQHJULSk9XPWnvfmUWMaUQQclY7cRBdTymKRi0bxe2e2fBIRaoeDreIRLTde2ci4LRkUUwpWl73QOKGAoGR1k4zW8L4XYHLIKOTZCuvaHd3iGKzixQuZhw4gWdbeNKpxn0+SgL57GbDCOTATcsONydBbQ2nI7Du7Io6LzgLXtFfnV3lVcKhmaEYcPCpqlZWqajrWDEuK21EV6kfY8mMfrDApXOgvZQ4ofdygeTE/zu6ljrI0+HRikTCz1OIPfBqhLyHz5YvNkmBSNofP+X1ocp8+ZS5ePuqmjs2wfDQuJ/2dnZNcPgK9M7kBmRgH5KQlnoaye/urPTshidfNjZ+Wi23G6T5RxJ/zZyY9Vso7Kzs0r7dk169o+FPpDW9LQ5MTj+D8yCpCdrEpZ9Kr+7M/2HhYmP1izQmmcqKIj6t1vTO79Yu7HLR0hisNxziMI1i9U/KqLJB4iv8hF913fuovVYS6r8sassbKLFKNr0xVbLbJmvCbiRGGpOZzdIwVU7wP70qah2NgyN3aZmkbd1UxK+QJ1oW20MX5Z+PXo0xT/b+HVJecdslyz0xwT3bihnsU9jrTeIhZpqY2OmAxs9or0qXaRTZog1dWzCTPBLz47+/A6Evv55/CSjWtIdBs4paSR1V27salqJ84lq97EWrVpjDx8+PNMe8NO3SOfat8YenmimRrxylScoUV/BxEMaEz/27++Y/vxOjQZtw+KEcyrgeXtbPUR3Ny4ePiSXL7DRPs1HBGRQqUFnZ2faM8LfwZrUnZKzM9yTkIGmOkEUstTEBdhQ9z/5E+XFf+7kv4MXUzwzcXbBDoLiqOHFLYWn0Y1JsxuRs4cZnBi4YfVrntqGxBBtRkaExR1DO25gJ/B1H3WpUfjG0gB30vwvsvDfZyd2A3weXzMiJm0mZ4TFHeOOxA84KRHH3Uj39YuYzQianpA7xijIorncaKQCipFaynqWyZ8TExe2A2wxUPPRdcZtGze+tWQBlQv7Iboond1YBGOxecnKB44jgXxrjAN37uhSSkBlEQvI1tFeLFjiVOPkUmRRC5lsuHMjwpFLGZKLxd+uYzKhbbd0gBPjwvguXkDAlUu9QN62neGdA4yFczsWqFfCRlBiyDYsuG8XrNyAmQnxw8XlIgfjU4tBDdHe+bnFuwADkgL+V02bp3iqLs7PzWFoUNALAsiCSze4iBhQ78foFwvBLjvtljR4qSDLckGTm3jQ4XYRA48eldyqxQLbtm7YKMJNxGIpF7c4OciLutP1NRZGBP7TWA4G7GDYLghHOGXZV1FbcksTzpXkvEd1xCLomgVnHPmSK04WZnZBllc+pBRKcJ13bvMCu9HXa4hozt2DF7z+1qJ2IGCa2uB5+vT0TsViGiLiuqdzrkNb7eBGtb8sfG3bsmWrCKf3IYhXIWWjpzB9n542syAjpZQhvdvuWUQk5yQc3osiuvbCOCEStnHzTxmKBloOmTaS5sUUGTQaT+nV3bg6C2HedWKY1pLa0gQOcELX+fBjO4aloQhPN0xJxkESuOG6L3J1m6Kze5Qkl2eEb5jOhygVyJ0cDQ0NlBe6JsJLjRjeTLa4QF5z7cZ23+9Rgommy8Qw92RCXYyQghiD4bSy2oPqBVs/hencRIwM4Ru8RXr3wY0+sKi7a6pW86GgJPKSTCcrchZfAZCmp0ntjKCBhthIURJQViIW6d0PN67MwhcU7abMjs+H0EB33RViyt1fciMr4W5kehrfdSYHlI8CaLxuXfVEV4nhMi0csoCy5QKGdTOtSWCC5xo0ZDKV/QegQIskypuoBeF6Yln1kBvOy6fbtHB6329NcpGe1udD2Ca3oEqNgBJ4IFUEFnX1nlGYPhRIZbXpDKGhOR+Ju00LpyzQGXEKw6ITwWpDIJBckQiXlWNEMi4XKfpTqsHOegc3nN6JUXCZFo7vB69JjtsqH4wTJZP4SzKexC+FrMIzAoWyMCFPFPiPqBvhs+h1VuLVmQn/oaiR1g0R3HAEg3c3tnDDQvhGdArjf81ms1QqzczMHBysra2Vy+XFxUU/0uf/ZZSzGiH3/0k70xy5NKIpR2efvkQ1CmP5iSY/7c06c+Ok1dKSpOemHyzwGekCg0drM1/CC+l0OszkZwqnF/xfPu1dcOrSB68thtDNXux9AgNR7U56haMLC4ufzy9sLtZHsGn+Yu+zfyGhKI3MwSlZm2nut3z2PLqziONM922eTKGbctFFP0sMF3vnnycXFtL2Yag8FoDI50/nexcXF2PI2Bi82Ns7//R5ET7qtj+2gU0gC/jXp5COB+cX2AKafmsz4XA6mkisNe1+t0onFghBsXXZLB2Uw9EEOv4ixPDp/HxPo3OI4cukP+0Ag84tFA9SNEpfwP5gYLHzfpOTk+oW2ELavzj55TMRuIHeC3f2A0JZO7SkYcsinixelsr+dCKdJsbBi0XMdkGvdLjLwR0KisokUjcW5i0sWmNnhRPllgUNGxbx5OVBIqo1P8m0qJPzaJkWDVa0xrvuuajs3suRqcKJkhmGJYt4fN+fMGDW+qtXL77YWnMWoG6P3qhEy45YJA/9UZsQDCdxkjScXqWz5iomgxe9HDy86IBFvJToxfa1izWv3k5HuBzvymLNJilunaKlZBcW5b70CjdCiVZHFvG10UHhD68lO7BIlkalgWDpE0PPIt66GWWzXwrPxO1ZlL+2d9esqG1exC9HKy2gkRzasUiOUB9ClG7GbVgURy0t/OGDpDWL+H76a/t27Srb5EXyYNSaCCSGXV58bce+gqJ29WLkygWwsMmL0Sud0EZs8mLEBp1I4TU7FiM1F8EKl7y8UBTdt6udoze80E1UdX3qyA3B/X67eWq8NGqJ0WHOfjhqBSOqnaYa5qmj1kbCPlsW8dJowQjrL57p17VGrFftuA4+Wj2JbvHCzGKkFvkMaWG8JjBKi7/GtDCxGKFuNWH8ffvG62bJkblulm4mu7AYmUWMcNmIwswi3hyNmXvU/BcpzNfZR6NfTVw6ukepOAIsEqZiYc1iBC4wR2csUFjfr3XbR1zWKKzv40s2bzWMhDUKm/s7bzUMy1phz8KX3L+tMMLRSxsUtvdAxw873Kx/g5VetP+ro/b3gxfLt2/QZXnrc3cWN+eeV+eKllt27aMLCxhoLN6m1EiH9zv/2cQuz9I0o7flMkE63ez2FyS7sIj7SonbkBvRcFcSDp6xShab4RtOI5wo7zv5q6IOnr2L+/bLN7ephBP+Uivp6O+rOnoOMZ5sNcuJmzfgCEcBxKHjPzTr9JnMeLK4P+O/OTzCwCF8sN/q/ERqbywwjnjxciaccPO84XUrjJ67jCYS/rVSx0dRr8oC84j7Ws0DfzoRTffn6cMrCj1+mIboIXyUs+W1mVJz/7JVRI8pu4vMPQvCI4mfWl3zIwei0bSr5yF7DJgEjaJGYSfwlzTEfjBTguj3D9ED274kUi8UemZBgCTR8+G+1uHlfrM0c7BWRoUKOYlSFAFK65/kNgp/jkOLYqD0cWv1BX6Nnt1Fz16vQcgQc6kJUe9fHpLAfXHyWwPwc9VD8Xe42W80gB+KxVbr8PDy8nJ/v0ke8CfP+OtF3i6hLfZRbJcQHcQHEWJpf7eB+gsT0AGS9Kerhmyrq7KwEg2AeW8SSeYk3WyA4bnSIFjcVHksmDwWTB4LJo8Fk8eCyWPB5LFg8lgweSyYPBZMHgsmjwWTx4LJY8HksWDyWDB5LJg8FkweCyaPBZPHgsljweSxYPJYMHksmDwWTB4LpuD/AUN07z8FG3HXAAAAAElFTkSuQmCC"
+                        alt="Image 1">
+                </div>
+                <div class="popup">
+                    <p
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;text-align: center;">
+                        Learn about the importance of oral health and how to maintain good oral hygiene.</p>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="top">
+                    <img src="https://www.gen-labs.com/wp-content/uploads/Medical/Dentistry/Dental%20Anatomy%20Training%20Lab/Dental-Anatomy-and-Physiology-Training-lab.jpg"
+                        alt="Image 2">
+                </div>
+                <div class="bottom">
+                    <img src="https://st5.depositphotos.com/28286440/66056/v/450/depositphotos_660560630-stock-illustration-dental-emergency-icon-vector-logotype.jpg"
+                        alt="Image 2">
+                </div>
+                <div class="popup">
+                    <p
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;text-align: center;">
+                        Study the structure and function of teeth and the surrounding tissues.</p>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="top">
+                    <img src="https://thumb.ac-illust.com/72/72247106f7f610c9804fb174d278bd79_t.jpeg" alt="Image 3">
+                </div>
+                <div class="bottom">
+                    <img src="https://media.oralhealthgroup.com/uploads/2023/09/iStock-1371065029-e1693923592812-1024x576.jpg"
+                        alt="Image 3">
+                </div>
+                <div class="popup">
+                    <p
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;text-align: center;">
+                        Learn about the different types of dental materials used in restorative dentistry.</p>
+
+                </div>
+            </div>
+            <div class="content-box">
+                <h2>Patient Information</h2>
+                <p>Dental health is crucial to overall well-being. Common issues such as cavities, gum disease, and
+                    tooth sensitivity can be prevented with proper oral hygiene and regular visits to the dentist.
+                    Maintaining good habits like brushing, flossing, and avoiding tobacco use helps keep your smile
+                    healthy.</p>
+
+
+
+            </div>
+
+        </div>
+        </div>
+
+        </div>
+
+        <div class="main-container">
+            <!-- Professional Education Card -->
+            <div class="card">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <h3>Professional Education</h3>
+              <p>Helping students and professionals access educational resources, courses, and case studies for continuous learning.</p>
+            </div>
+        
+            <!-- Patient Education Card -->
+            <div class="card">
+              <i class="fas fa-tooth"></i>
+              <h3>Patient Education</h3>
+              <p>Providing essential information about dental hygiene, treatments, and tips for maintaining a healthy smile.</p>
+            </div>
+        
+            <!-- Research Card -->
+            <div class="card">
+              <i class="fas fa-flask"></i>
+              <h3>Research</h3>
+              <p>Sharing the latest studies and advancements in the field of dentistry, aimed at improving patient care and treatments.</p>
+            </div>
+        
+            <!-- Products Card -->
+            <div class="card">
+              <i class="fas fa-box"></i>
+              <h3>Products</h3>
+              <p>Explore a range of high-quality dental products, from toothpaste to advanced electric toothbrushes and more.</p>
+            </div>
+          </div>
+        
+        <footer>
+            <div class="footer-container">
+                <!-- Section 1 -->
+                <div class="footer-section">
+                    <h2
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        Services</h2>
+                    <ul>
+                        <li>General</li>
+                        <li>Cosmetic</li>
+                        <li>Surgical</li>
+                    </ul>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="footer-section">
+                    <h2
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        Our Office</h2>
+                    <ul>
+                        <li>Home</li>
+                        <li>Warranty</li>
+                        <li>About</li>
+                        <li>New Patients</li>
+                        <li>Contact</li>
+
+                    </ul>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="footer-section">
+                    <h2
+                        style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        Conatct Us</h2>
+                    <ul>
+                        <li>5670 Greenwood Plaza Blvd Suite 404, Greenwood Village, CO 80111
+
+                            (720) 730-9140
+
+                            info@villagedentaldtc.com
+
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="footer-section newsletter">
+                    <h3>Subscribe to our newsletter</h3>
+                    <p>Monthly digest of what's new and exciting from us.</p>
+                    <form action="#" method="POST">
+                        <input type="email" placeholder="Email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+
+
+        </footer>
+</body>
+
+</html>
